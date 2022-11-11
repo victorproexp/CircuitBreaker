@@ -1,0 +1,22 @@
+services:
+  ServiceA:
+      image: circuitbreaker:latest
+      environment:
+      - ToFail=yes
+      expose:
+      - "80"
+  ServiceB:
+      image: circuitbreaker:latest
+      environment:
+      - ToFail=no
+      expose:
+      - "80"
+  nginx:
+      image: nginx:latest
+      volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      depends_on:
+      - ServiceA
+      - ServiceB
+      ports:
+      - "4000:4000"
