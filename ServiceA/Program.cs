@@ -1,6 +1,13 @@
+using kundeAPI.Models;
+using kundeAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<KundeDatabaseSettings>(
+    builder.Configuration.GetSection("KundeDatabase"));
+
+builder.Services.AddSingleton<KundeService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
